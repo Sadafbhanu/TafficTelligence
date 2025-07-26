@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Traffic Volume Estimation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Use the external image directly */
+            background: url('https://media.istockphoto.com/id/159406920/photo/aerial-view-of-cars-in-traffic.jpg?s=612x612&w=0&k=20&c=2BeXnk1EppE_mfWgYFqoXidmge0uAhSk9gl8bbtHyF8=') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.25);
+            z-index: 1;
+        }
+        .form-container {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            background: rgba(255,255,255,0.85);
+            padding: 32px 32px 24px 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            z-index: 2;
+            min-width: 340px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        label {
+            font-weight: 500;
+            color: #222;
+            margin-bottom: 2px;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            padding: 7px 10px;
+            border: 1px solid #bdbdbd;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #f9f9f9;
+            margin-bottom: 6px;
+        }
+        input[type="submit"] {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        input[type="submit"]:hover {
+            background: #125ea2;
+        }
+        .result {
+            margin-top: 18px;
+            background: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            color: #1976d2;
+            text-align: left;
+        }
+        @media (max-width: 700px) {
+            .form-container { left: 0; right: 0; margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="form-container">
+        <h1>Traffic Volume Estimation</h1>
+        <h2>Please enter the following details</h2>
+        <form method="post">
+            <label for="holiday">holiday:</label>
+            <select name="holiday" id="holiday" required>
+                <option value="None">None</option>
+                <option value="New Years Day">New Years Day</option>
+                <option value="Columbus Day">Columbus Day</option>
+                <option value="Independence Day">Independence Day</option>
+                <option value="Christmas Day">Christmas Day</option>
+                <option value="Thanksgiving Day">Thanksgiving Day</option>
+                <option value="Labor Day">Labor Day</option>
+            </select>
+            <label for="temperature">temp:</label>
+            <input type="number" name="temperature" id="temperature" step="any" required>
+            <label for="rain">rain:</label>
+            <input type="number" name="rain" id="rain" step="any" required>
+            <label for="snow">snow:</label>
+            <input type="number" name="snow" id="snow" step="any" required>
+            <label for="weather">weather:</label>
+            <select name="weather" id="weather" required>
+                <option value="Clear">Clear</option>
+                <option value="Clouds">Clouds</option>
+                <option value="Rain">Rain</option>
+                <option value="Snow">Snow</option>
+                <option value="Fog">Fog</option>
+                <option value="Thunderstorm">Thunderstorm</option>
+            </select>
+            <label for="year">year:</label>
+            <input type="number" name="year" id="year" required>
+            <label for="month">month:</label>
+            <input type="number" name="month" id="month" required>
+            <label for="day">day:</label>
+            <input type="number" name="day" id="day" required>
+            <label for="hour">hours:</label>
+            <input type="number" name="hour" id="hour" required>
+            <label for="minute">minutes:</label>
+            <input type="number" name="minute" id="minute" required>
+            <label for="second">seconds:</label>
+            <input type="number" name="second" id="second" required>
+            <input type="submit" value="Predict">
+        </form>
+        {% if prediction is not none %}
+            <div class="result">
+                <strong>Estimated Traffic Volume is :</strong> {{ prediction }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html> 
